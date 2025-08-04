@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Experience | Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            background-color: #121212;
+            color: #e0e0e0;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .main-header {
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+        }
+        .logo span {
+            color: #00d4ff;
+        }
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        .nav-links li {
+            margin-left: 2rem;
+        }
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+        .nav-links a:hover {
+            color: #00d4ff;
+        }
+        .nav-links a.active {
+            color: #00d4ff;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #00d4ff;
+            transition: width 0.3s ease;
+        }
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            color: white;
+        }
+        .experience-header {
+            background: linear-gradient(rgba(15, 32, 39, 0.9), rgba(32, 58, 67, 0.9)), 
+                        url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 6rem 0;
+            text-align: center;
+        }
+        .experience-header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: fadeIn 1s ease-in-out;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+        .experience-header p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+        .timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 4rem auto;
+            padding: 0 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        .timeline::after {
+            display: none;
+        }
+        .timeline-item {
+            padding: 20px;
+            position: relative;
+            width: calc(50% - 20px);
+            box-sizing: border-box;
+            margin-bottom: 40px;
+        }
+        .timeline-item:nth-child(odd),
+        .timeline-item:nth-child(even) {
+            left: auto;
+        }
+        .timeline-content {
+            padding: 30px;
+            background: #1e1e1e;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            border: 1px solid #333;
+            transition: all 0.3s ease;
+            position: relative;
+            height: 100%;
+        }
+        .timeline-content:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+            border-color: #00d4ff;
+        }
+        .timeline-date {
+            position: absolute;
+            top: -15px;
+            right: 30px;
+            background: linear-gradient(135deg, #00d4ff, #0f2027);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            box-shadow: 0 3px 10px rgba(0, 212, 255, 0.3);
+        }
+        .timeline-circle {
+            display: none;
+        }
+        .experience-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #00d4ff;
+        }
+        .company-name {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            color: #aaa;
+            display: flex;
+            align-items: center;
+        }
+        .company-name i {
+            margin-right: 8px;
+            color: #00d4ff;
+        }
+        .experience-description {
+            margin-bottom: 1rem;
+            color: #ccc;
+        }
+        .experience-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 1.5rem;
+        }
+        .skill-tag {
+            background: rgba(0, 212, 255, 0.1);
+            color: #00d4ff;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+        }
+        footer {
+            background: #0f2027;
+            color: #aaa;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+            border-top: 1px solid #333;
+        }
+        .footer-content p {
+            margin-bottom: 1rem;
+        }
+        .back-to-top {
+            color: #00d4ff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        .back-to-top:hover {
+            color: white;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @media (max-width: 992px) {
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background: linear-gradient(135deg, #0f2027, #203a43);
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding-top: 2rem;
+                transition: left 0.3s ease;
+            }
+            .nav-links.active {
+                left: 0;
+            }
+            .nav-links li {
+                margin: 1.5rem 0;
+            }
+            .hamburger {
+                display: block;
+            }
+            .experience-header h1 {
+                font-size: 2.5rem;
+            }
+            .timeline-item {
+                width: 100%;
+                padding-left: 25px;
+                padding-right: 25px;
+            }
+        }
+        @media (max-width: 768px) {
+            .experience-header {
+                padding: 4rem 0;
+            }
+            .experience-header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="main-header">
+        <div class="container nav-container">
+            <a href="#" class="logo">Lohitha<span>Anantam</span></a>
+            <ul class="nav-links">
+                <li><a href="home.html"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="about.html"><i class="fas fa-user"></i> About</a></li>
+                <li><a href="skills.html"><i class="fas fa-code"></i> Skills</a></li>
+                <li><a href="experience.html"><i class="fas fa-briefcase"></i> Experience</a></li>
+                <li><a href="certificiate.html"><i class="fas fa-certificate"></i> Certifications</a></li>
+                <li><a href="projects.html"><i class="fas fa-project-diagram"></i> Projects</a></li>
+                <li><a href="contact.html" class="active"><i class="fas fa-envelope"></i> Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <section class="experience-header">
+        <div class="container">
+            <h1>Professional Journey</h1>
+            <p>My work experiences that have shaped my skills and expertise in the tech industry</p>
+        </div>
+    </section>
+
+    <main class="container">
+        <div class="timeline">
+            <!-- SWECHA Internship -->
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">May 2025 - Aug 2025</div>
+                    <h3 class="experience-title">Machine Learning Intern</h3>
+                    <div class="company-name">
+                        <i class="fas fa-building"></i> SWECHA Organization (in collaboration with IIIT Hyderabad)
+                    </div>
+                    <p class="experience-description">
+                        Served as a Machine Learning intern at SWECHA, working on cutting-edge AI projects in collaboration with IIIT Hyderabad researchers.
+                    </p>
+                    <ul class="experience-description" style="list-style-type: disc; padding-left: 20px;">
+                        <li>Developed and implemented machine learning models for real-world applications</li>
+                        <li>Participated in data collection, preprocessing, and feature engineering</li>
+                        <li>Collaborated with IIIT Hyderabad researchers on computer vision projects</li>
+                        <li>Presented findings and technical solutions to stakeholders</li>
+                        <li>Contributed to open-source AI initiatives and documentation</li>
+                    </ul>
+                    <div class="experience-skills">
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">TensorFlow</span>
+                        <span class="skill-tag">PyTorch</span>
+                        
+                    </div>
+                </div>
+            </div>
+
+            <!-- CodeAlpha Internship -->
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">May 2025 - June 2025</div>
+                    <h3 class="experience-title">Web Developer Intern</h3>
+                    <div class="company-name">
+                        <i class="fas fa-building"></i> CodeAlpha
+                    </div>
+                    <p class="experience-description">
+                        Served as a web development intern at CodeAlpha, contributing to various projects and enhancing my full-stack development skills.
+                    </p>
+                    <ul class="experience-description" style="list-style-type: disc; padding-left: 20px;">
+                        <li>Developed responsive web applications using modern frontend frameworks</li>
+                        <li>Implemented RESTful APIs and database solutions for backend services</li>
+                        <li>Collaborated with team members using Agile development methodologies</li>
+                        <li>Optimized web performance and implemented SEO best practices</li>
+                        <li>Participated in code reviews and contributed to open-source projects</li>
+                    </ul>
+                    <div class="experience-skills">
+                        <span class="skill-tag">HTML/CSS</span>
+                        <span class="skill-tag">JavaScript</span>
+                        <span class="skill-tag">React</span>
+                        <span class="skill-tag">Node.js</span>
+                        <span class="skill-tag">Git</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <div class="container footer-content">
+            <p>&copy; 2025 Your Portfolio. All rights reserved.</p>
+            <a href="#" class="back-to-top"><i class="fas fa-arrow-up"></i> Back to Top</a>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu toggle
+            const hamburger = document.querySelector('.hamburger');
+            const navLinks = document.querySelector('.nav-links');
+            
+            hamburger.addEventListener('click', function() {
+                navLinks.classList.toggle('active');
+                hamburger.innerHTML = navLinks.classList.contains('active') ? 
+                    '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+            });
+            
+            // Close mobile menu when clicking a link
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', function() {
+                    navLinks.classList.remove('active');
+                    hamburger.innerHTML = '<i class="fas fa-bars"></i>';
+                });
+            });
+            
+            // Smooth scroll to top
+            const backToTop = document.querySelector('.back-to-top');
+            backToTop.addEventListener('click', function(e) {
+                e.preventDefault();
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // Show/hide back to top button based on scroll position
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    backToTop.style.display = 'inline-block';
+                } else {
+                    backToTop.style.display = 'none';
+                }
+            });
+            
+            // Initialize - hide back to top button initially
+            backToTop.style.display = 'none';
+            
+            // Add active class to current page link
+            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                if (link.getAttribute('href') === currentPage) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

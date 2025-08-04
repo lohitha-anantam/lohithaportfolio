@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Certifications Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --dark-bg: #1a1a2e;
+            --dark-accent: #16213e;
+            --highlight: #0f3460;
+            --text-light: #e6e6e6;
+            --text-muted: #b8b8b8;
+            --primary: #4cc9f0;
+            --secondary: #4895ef;
+            --accent: #f72585;
+            --header-bg: #1a1a2e;
+            --header-accent: #4cc9f0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+            padding-top: 80px; /* Space for fixed header */
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--header-bg);
+            color: white;
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 85%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .logo span {
+            color: var(--header-accent);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 30px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        nav ul li a:hover {
+            color: var(--header-accent);
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--header-accent);
+            bottom: -5px;
+            left: 0;
+            transition: width 0.3s;
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        /* Page Content Styles */
+        .page-header {
+            text-align: center;
+            margin: 60px 0 40px;
+            padding: 0 20px;
+            position: relative;
+        }
+
+        .page-header h1 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 2.8rem;
+            font-weight: 700;
+            text-shadow: 0 2px 10px rgba(76, 201, 240, 0.3);
+            animation: fadeInDown 1s ease;
+        }
+
+        .page-header p {
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            animation: fadeIn 1.5s ease;
+        }
+
+        .certificate-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            padding: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .certificate-box {
+            background: linear-gradient(145deg, var(--dark-bg), var(--dark-accent));
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border-left: 4px solid var(--primary);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s forwards;
+        }
+
+        .certificate-box:nth-child(1) { animation-delay: 0.2s; }
+        .certificate-box:nth-child(2) { animation-delay: 0.4s; }
+        .certificate-box:nth-child(3) { animation-delay: 0.6s; }
+        .certificate-box:nth-child(4) { animation-delay: 0.8s; }
+        .certificate-box:nth-child(5) { animation-delay: 1.0s; }
+        .certificate-box:nth-child(6) { animation-delay: 1.2s; }
+
+        .certificate-box:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), 0 0 20px rgba(76, 201, 240, 0.3);
+            border-left-color: var(--accent);
+        }
+
+        .certificate-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(76, 201, 240, 0.1), transparent);
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .certificate-box:hover::before {
+            opacity: 1;
+        }
+
+        .certificate-image-container {
+            height: 220px;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            margin-bottom: 20px;
+            border: 2px solid var(--highlight);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--dark-accent);
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.3);
+        }
+
+        .certificate-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s, filter 0.5s;
+        }
+
+        .certificate-box:hover .certificate-image {
+            transform: scale(1.05);
+            filter: brightness(1.1);
+        }
+
+        .certificate-badge {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: var(--accent);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 10px rgba(247, 37, 133, 0.4);
+            z-index: 2;
+            animation: pulse 2s infinite;
+        }
+
+        .certificate-content {
+            flex-grow: 1;
+        }
+
+        .certificate-content h3 {
+            color: var(--primary);
+            margin: 0 0 10px 0;
+            font-size: 1.5rem;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .certificate-box:hover .certificate-content h3 {
+            color: var(--accent);
+        }
+
+        .issuer {
+            color: var(--secondary);
+            font-weight: 500;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .description {
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+
+        .completion-date {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-top: auto;
+            padding-top: 15px;
+            border-top: 1px solid var(--highlight);
+            display: flex;
+            align-items: center;
+        }
+
+        .completion-date i {
+            margin-right: 8px;
+            color: var(--accent);
+        }
+
+        .default-image-text {
+            color: var(--text-muted);
+            font-size: 1rem;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .default-image-text::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(22,33,62,0.8), rgba(26,26,46,0.9));
+            z-index: -1;
+            border-radius: 8px;
+        }
+
+        .view-more {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .view-more-btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 12px 30px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(76, 201, 240, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .view-more-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(76, 201, 240, 0.6);
+            background: linear-gradient(45deg, var(--secondary), var(--primary));
+        }
+
+        .view-more-btn i {
+            margin-left: 8px;
+            transition: transform 0.3s;
+        }
+
+        .view-more-btn:hover i {
+            transform: translateX(5px);
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            background: rgba(15, 52, 96, 0.2);
+            margin-top: 50px;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes glow {
+            0% { box-shadow: 0 0 5px rgba(76, 201, 240, 0.5); }
+            100% { box-shadow: 0 0 20px rgba(76, 201, 240, 0.8); }
+        }
+
+        @media (max-width: 768px) {
+            .certificate-container {
+                grid-template-columns: 1fr;
+                padding: 20px;
+            }
+            
+            .page-header h1 {
+                font-size: 2rem;
+            }
+            
+            /* Responsive header */
+            .header-container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            nav ul {
+                margin-top: 20px;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            nav ul li {
+                margin: 10px;
+            }
+            
+            body {
+                padding-top: 120px; /* More space for mobile header */
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">Lohitha<span>Anantam</span></div>
+            <nav>
+                <ul>
+                   <li><a href="home.html"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="about.html"><i class="fas fa-user"></i> About</a></li>
+                <li><a href="skills.html"><i class="fas fa-code"></i> Skills</a></li>
+                <li><a href="experience.html"><i class="fas fa-briefcase"></i> Experience</a></li>
+                <li><a href="certificiate.html"><i class="fas fa-certificate"></i> Certifications</a></li>
+                <li><a href="projects.html"><i class="fas fa-project-diagram"></i> Projects</a></li>
+                <li><a href="contact.html" class="active"><i class="fas fa-envelope"></i> Contact</a></li>
+            </ul>
+        
+            </nav>
+        </div>
+    </header>
+
+    <div class="page-header">a
+        <h1>My Professional Certifications</h1>
+        <p>A showcase of my technical qualifications and learning achievements in various domains</p>
+    </div>
+
+    <div class="certificate-container">
+        <!-- Certificate 1 -->
+        <div class="certificate-box">
+            <div class="certificate-badge">
+                <i class="fas fa-certificate"></i>
+            </div>
+            <div class="certificate-image-container">
+                <img src="https://images.unsplash.com/photo-1551033406-611cf9a28f67?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="C Programming Certificate" class="certificate-image">
+                <div class="default-image-text">Introduction to C Programming Certificate</div>
+            </div>
+            <div class="certificate-content">
+                <h3>Introduction to C Programming</h3>
+                <span class="issuer">Cisco Networking Academy</span>
+                <p class="description">
+                    This certification demonstrates foundational knowledge of C programming language, 
+                    including data types, control structures, functions, and pointers. Covers memory 
+                    management and basic algorithm implementation, providing essential skills for 
+                    system programming and embedded development.
+                </p>
+                
+            </div>
+        </div>
+
+        <!-- Certificate 2 -->
+        <div class="certificate-box">
+            <div class="certificate-badge">
+                <i class="fas fa-shield-alt"></i>
+            </div>
+            <div class="certificate-image-container">
+                <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Cybersecurity Certificate" class="certificate-image">
+                <div class="default-image-text">Cybersecurity Essentials Certificate</div>
+            </div>
+            <div class="certificate-content">
+                <h3>Cybersecurity Essentials</h3>
+                <span class="issuer">Cisco Networking Academy</span>
+                <p class="description">
+                    Validates understanding of cybersecurity principles, threats, vulnerabilities, 
+                    and defense mechanisms. Covers encryption, network security, risk management, 
+                    and ethical hacking fundamentals. Prepares for identifying and mitigating 
+                    security risks in organizational IT infrastructure.
+                </p>
+                
+            </div>
+        </div>
+
+        <!-- Certificate 3 -->
+        <div class="certificate-box">
+            <div class="certificate-badge">
+                <i class="fab fa-python"></i>
+            </div>
+            <div class="certificate-image-container">
+                <img src="https://images.unsplash.com/photo-1526379095098-d400fd0bf935?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Python Certificate" class="certificate-image">
+                <div class="default-image-text">Python Programming Certificate</div>
+            </div>
+            <div class="certificate-content">
+                <h3>Python Programming</h3>
+                <span class="issuer">Cisco Networking Academy</span>
+                <p class="description">
+                    Certifies proficiency in Python programming including data structures, 
+                    OOP concepts, file handling, and exception handling. Covers popular 
+                    libraries for data analysis and automation. Provides skills for 
+                    developing applications, scripts, and working with APIs.
+                </p>
+                
+            </div>
+        </div>
+
+        <!-- Certificate 4 -->
+        <div class="certificate-box">
+            <div class="certificate-badge">
+                <i class="fas fa-robot"></i>
+            </div>
+            <div class="certificate-image-container">
+                <img src="data:image/jpeg;base64,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" alt="AI Certificate" class="certificate-image">
+                <div class="default-image-text">Generative AI Fundamentals Certificate</div>
+            </div>
+            <div class="certificate-content">
+                <h3>Generative AI Fundamentals</h3>
+                <span class="issuer">Google Developer</span>
+                <p class="description">
+                    Demonstrates understanding of generative AI models, their architecture, 
+                    and applications. Covers transformer models, diffusion models, and their 
+                    use in text, image, and code generation. Includes ethical considerations 
+                    and practical implementation using Google's AI tools.
+                </p>
+                
+            </div>
+        </div>
+
+        <!-- Certificate 5 -->
+        <div class="certificate-box">
+            <div class="certificate-badge">
+                <i class="fas fa-code"></i>
+            </div>
+            <div class="certificate-image-container">
+                <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Web Development Certificate" class="certificate-image">
+                <div class="default-image-text">Web Development Certificate</div>
+            </div>
+            <div class="certificate-content">
+                <h3>Web Development</h3>
+                <span class="issuer">CSD Department</span>
+                <p class="description">
+                    Certifies comprehensive web development skills including HTML5, CSS3, 
+                    JavaScript, and modern frameworks. Covers responsive design, REST APIs, 
+                    authentication, and deployment. Includes both frontend and backend 
+                    development concepts with practical project experience.
+                </p>
+                
+            </div>
+        </div>
+
+        <!-- Certificate 6 -->
+        <div class="certificate-box">
+            <div class="certificate-badge">
+                <i class="fas fa-microchip"></i>
+            </div>
+            <div class="certificate-image-container">
+                <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Arduino Certificate" class="certificate-image">
+                <div class="default-image-text">Arduino Programming Certificate</div>
+            </div>
+            <div class="certificate-content">
+                <h3>Arduino Programming</h3>
+                <span class="issuer">APSCHE</span>
+                <p class="description">
+                    Validates skills in Arduino microcontroller programming and IoT development. 
+                    Covers sensor integration, actuator control, and prototyping electronic 
+                    circuits. Includes practical knowledge of embedded systems programming 
+                    and interfacing with various electronic components.
+                </p>
+                
+            </div>
+        </div>
+    </div>
+
+    
+    <script>
+        // Header scroll effect
+        document.addEventListener('DOMContentLoaded', function() {
+            const header = document.querySelector('header');
+
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 50) {
+                    header.style.backgroundColor = 'rgba(26, 26, 46, 0.9)';
+                    header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.2)';
+                } else {
+                    header.style.backgroundColor = 'var(--header-bg)';
+                    header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+                }
+            });
+            
+            // Enhanced hover effects with GSAP-like animations
+            const certificateBoxes = document.querySelectorAll('.certificate-box');
+            
+            certificateBoxes.forEach(box => {
+                // Mouse enter animation
+                box.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-10px) scale(1.02)';
+                    this.style.boxShadow = '0 15px 35px rgba(0,0,0,0.5), 0 0 20px rgba(76, 201, 240, 0.3)';
+                    this.style.borderLeftColor = '#f72585';
+                    
+                    const title = this.querySelector('h3');
+                    if (title) title.style.color = '#f72585';
+                    
+                    const image = this.querySelector('.certificate-image');
+                    if (image) image.style.transform = 'scale(1.05)';
+                });
+                
+                // Mouse leave animation
+                box.addEventListener('mouseleave', function() {
+                    this.style.transform = '';
+                    this.style.boxShadow = '0 10px 30px rgba(0,0,0,0.3)';
+                    this.style.borderLeftColor = '#4cc9f0';
+                    
+                    const title = this.querySelector('h3');
+                    if (title) title.style.color = '#4cc9f0';
+                    
+                    const image = this.querySelector('.certificate-image');
+                    if (image) image.style.transform = '';
+                });
+            });
+
+            // Scroll animation for certificate boxes
+            function animateOnScroll() {
+                const boxes = document.querySelectorAll('.certificate-box');
+                const windowHeight = window.innerHeight;
+                
+                boxes.forEach(box => {
+                    const boxPosition = box.getBoundingClientRect().top;
+                    const scrollPosition = windowHeight / 1.2;
+                    
+                    if (boxPosition < scrollPosition) {
+                        box.style.opacity = '1';
+                        box.style.transform = 'translateY(0)';
+                    }
+                });
+            }
+
+            // Initialize animations on load and scroll
+            window.addEventListener('load', animateOnScroll);
+            window.addEventListener('scroll', animateOnScroll);
+        });
+    </script>
+</body>
+</html>

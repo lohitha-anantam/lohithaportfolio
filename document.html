@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Resume</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        .header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            padding: 20px;
+        }
+        
+        .pdf-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .pdf-viewer {
+            width: 100%;
+            height: 100%;
+            min-height: 70vh;
+            border: none;
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background-color: #ecf0f1;
+            border-top: 1px solid #ddd;
+        }
+        
+        .download-btn, .close-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+        
+        .download-btn {
+            background-color: #3498db;
+            color: white;
+        }
+        
+        .download-btn:hover {
+            background-color: #2980b9;
+        }
+        
+        .close-btn {
+            background-color: #e74c3c;
+            color: white;
+        }
+        
+        .close-btn:hover {
+            background-color: #c0392b;
+        }
+        
+        .loading-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        
+        .spinner {
+            border: 5px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top: 5px solid #3498db;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @media (max-width: 768px) {
+            .controls {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .pdf-viewer {
+                min-height: 60vh;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="loading" class="loading-container">
+        <div class="spinner"></div>
+        <h2>Loading Resume...</h2>
+    </div>
+
+    <div id="resume-container" style="display: none;">
+        <div class="header">
+            <h1>My Professional Resume</h1>
+        </div>
+        
+        <div class="container">
+            <div class="pdf-container">
+                <iframe id="pdf-viewer" class="pdf-viewer" src="lohitharesume.pdf#toolbar=0"></iframe>
+                <div class="controls">
+                    <a href="lohitharesume.pdf" download class="download-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+                            <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+                        </svg>
+                        Download PDF
+                    </a>
+                    <a href="home.html" class="close-btn" id="close-resume">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+                        </svg>
+                        Return to Homepage
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Wait for the page to load
+        window.addEventListener('load', function() {
+            // Hide loading spinner after 1.5 seconds and show resume
+            setTimeout(function() {
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('resume-container').style.display = 'block';
+                
+                // Focus on the PDF viewer
+                document.getElementById('pdf-viewer').focus();
+            }, 1500);
+            
+            // Enhanced close button functionality
+            const closeBtn = document.getElementById('close-resume');
+            
+            // Add click handler for additional functionality
+            closeBtn.addEventListener('click', function(e) {
+                // If JavaScript is working normally, let the href handle it
+                // Additional actions can be added here if needed
+                console.log('Returning to homepage...');
+                
+                // If in iframe, notify parent
+                if (window.self !== window.top) {
+                    e.preventDefault();
+                    window.parent.postMessage('close-resume', '*');
+                }
+            });
+            
+            // Listen for messages from parent window (if embedded)
+            window.addEventListener('message', function(event) {
+                if (event.data === 'close-resume') {
+                    window.location.href = 'home.html';
+                }
+            });
+        });
+        
+        // Fallback in case loading takes too long
+        setTimeout(function() {
+            if (document.getElementById('loading').style.display !== 'none') {
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('resume-container').style.display = 'block';
+            }
+        }, 5000);
+    </script>
+</body>
+</html>
